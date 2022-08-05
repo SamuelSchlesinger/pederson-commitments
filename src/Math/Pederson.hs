@@ -21,7 +21,7 @@ newtype Message = Message { unMessage :: Integer }
 
 commit :: RandomGen gen => PublicQuadruple -> Message -> gen -> (Commitment, Proof, gen)
 commit PublicQuadruple { p, q, g, h } msg gen = (commitment, proof, gen') where
-  (r, gen') = randomR (0, q) gen
+  (r, gen') = randomR (0, q - 1) gen
   commitment = Commitment (g ^ unMessage msg * h ^ r)
   proof = Proof r
 
